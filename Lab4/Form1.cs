@@ -16,19 +16,21 @@ namespace Lab4
         {
             InitializeComponent();
 
+            // BMI, BFP, BMR, CI 계산하기 버튼 위에 마우스 올려놓으면 툴팁 제공
             toolTip1.SetToolTip(BMICalcBtn, "BMI(체질량지수) : 자신의 몸무게를 키의 제곱으로 나눈 값");
             toolTip1.SetToolTip(BFPCalcBtn, "BFP(체지방비율)");
             toolTip1.SetToolTip(BMRCalcBtn, "BMR(기초대사량) : 생명을 유지하는데 필요한 최소한의 에너지량");
             toolTip1.SetToolTip(CICalcBtn, "매일 소비해야 하는 칼로리");
         }
 
+        // BMI 계산하기 버튼을 눌렀을 때
         private void BMICalcBtn_Click(object sender, EventArgs e)
         {
             try
             {
                 double weight = Convert.ToDouble(textBoxBMIWeight.Text);
                 double height = Convert.ToDouble(textBoxBMIHeight.Text);
-                double bmi = Math.Round(weight / (height * 0.01) / (height * 0.01), 1);
+                double bmi = Math.Round(weight / (height * 0.01) / (height * 0.01), 1); // 소숫점 둘째 자리에서 반올림
                 string result;
 
                 if (bmi < 18.5)
@@ -40,28 +42,35 @@ namespace Lab4
                 else
                     result = "Obese";
 
-                textBoxBMIResult.Text = bmi.ToString() + "\r\n" + result;
+                textBoxBMIResult.Text = bmi.ToString() + "\r\n" + result; // 텍스트박스에 결과 값 출력
             }
+            // 잘못된 값이 들어오면 에러창 출력
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
 
+        // BFP 계산 폼에서 남자를 선택했을 때
         private void radioBFPGenderMale_CheckedChanged(object sender, EventArgs e)
         {
+            // 남자 정보 입력 폼 보여주고, 여자 정보 입력 폼 가리기
             groupBFPMale.Visible = true;
             groupBFPFemale.Visible = false;
         }
 
+        // BFP 계산 폼에서 여자를 선택했을 때
         private void radioBFPFemale_CheckedChanged(object sender, EventArgs e)
         {
+            // 남자 정보 입력 폼 가리고, 여자 정보 입력 폼 보여주기
             groupBFPMale.Visible = false;
             groupBFPFemale.Visible = true;
         }
 
+        // BFP 계산 버튼 클릭했을 때
         private void BFPCalcBtn_Click(object sender, EventArgs e)
         {
+            // 남자가 선택되어 있을 때
             if (radioBFPGenderMale.Checked)
             {
                 try
@@ -80,6 +89,7 @@ namespace Lab4
                 
             }
 
+            // 여자가 선택되어 있을 때
             if (radioBFPFemale.Checked)
             {
                 try
@@ -99,8 +109,10 @@ namespace Lab4
             }
         }
 
+        // BMR 계산 버튼을 클릭 했을 때
         private void BMRCalcBtn_Click(object sender, EventArgs e)
         {
+            // 남자를 선택했을 때
             if (BMRMale.Checked)
             {
                 try
@@ -117,6 +129,8 @@ namespace Lab4
                     MessageBox.Show(ex.Message);
                 }
             }
+
+            // 여자를 선택했을 때
             if (BMRFemale.Checked)
             {
                 try
@@ -135,6 +149,7 @@ namespace Lab4
             }
         }
 
+        // CI 계산 버튼을 클릭했을 때
         private void CICalcBtn_Click(object sender, EventArgs e)
         {
             try
@@ -159,6 +174,7 @@ namespace Lab4
             }
         }
 
+        // 아래는 각 폼 우측 하단의 링크 라벨 클릭 했을 시 관련 페이지로 이동하는 코드
         private void linkBMI_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
